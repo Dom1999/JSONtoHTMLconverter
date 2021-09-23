@@ -1,0 +1,17 @@
+Naredite pretvornik, ki prebere JSON datoteko in jo pretvori v veljavno
+HTML datoteko.
+
+Program naj bo napisan dovolj splošno, da deluje za različne JSON
+datoteke. Torej, čim manj zapečatene kode.
+
+Pozorni bodite na arhitekturo in eleganco kode ter poskrbite, da bo v
+skladu s principi objektno orientiranega programiranja (OOP).
+
+Predpostavite lahko, da so vhodne in izhodne datoteke v isti mapi kot
+program. Torej, izbire datotek ter uporabniškega vmesnika ni potrebno
+implementirati. Indentacije (zamiki v desno) so zaželjene, ampak niso
+potrebne.
+
+Za interpretacijo JSON datoteke si lahko pomagate s poljubno knjižico,
+pretvorbo v HTML pa prosim implementirajte sami.
+

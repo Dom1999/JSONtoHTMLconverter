@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_work" default="compile.module.work">
+  <dirname property="module.work.basedir" file="${ant.file.module_work}"/>
+  
+  <property name="module.jdk.home.work" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.work" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.work" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.work" value="-encoding UTF-8 -source 11 -target 11 ${compiler.args}"/>
+  
+  <property name="work.output.dir" value="${module.work.basedir}/../../out/production/Work"/>
+  <property name="work.testoutput.dir" value="${module.work.basedir}/../../out/test/Work"/>
+  
+  <path id="work.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="work.module.production.classpath">
+    <path refid="${module.jdk.classpath.work}"/>
+  </path>
+  
+  <path id="work.runtime.production.module.classpath">
+    <pathelement location="${work.output.dir}"/>
+  </path>
+  
+  <path id="work.module.classpath">
+    <path refid="${module.jdk.classpath.work}"/>
+    <pathelement location="${work.output.dir}"/>
+  </path>
+  
+  <path id="work.runtime.module.classpath">
+    <pathelement location="${work.testoutput.dir}"/>
+    <pathelement location="${work.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.work">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.work">
+    <patternset refid="excluded.from.module.work"/>
+  </patternset>
+  
+  
+  <target name="compile.module.work" depends="compile.module.work.production,compile.module.work.tests" description="Compile module Work"/>
+  
+  <target name="compile.module.work.production" depends="register.custom.compilers" description="Compile module Work; production classes"/>
+  
+  <target name="compile.module.work.tests" depends="register.custom.compilers,compile.module.work.production" description="compile module Work; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.work" description="cleanup module">
+    <delete dir="${work.output.dir}"/>
+    <delete dir="${work.testoutput.dir}"/>
+  </target>
+</project>

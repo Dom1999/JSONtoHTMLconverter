@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_work.main" default="compile.module.work.main">
+  <dirname property="module.work.main.basedir" file="${ant.file.module_work.main}"/>
+  
+  <property name="module.jdk.home.work.main" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.work.main" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.work.main" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.work.main" value="-encoding UTF-8 -source 8 -target 1.8 ${compiler.args}"/>
+  
+  <property name="work.main.output.dir" value="${module.work.main.basedir}/../../build/classes/java/main"/>
+  <property name="work.main.testoutput.dir" value="${module.work.main.basedir}/../../build/classes/java/main"/>
+  
+  <path id="work.main.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="work.main.module.production.classpath">
+    <path refid="${module.jdk.classpath.work.main}"/>
+    <path refid="library.gradle:_com.google.code.gson:gson:2.7.classpath"/>
+    <path refid="library.gradle:_com.googlecode.json-simple:json-simple:1.1.1.classpath"/>
+    <path refid="library.gradle:_org.codehaus.jettison:jettison:1.3.5.classpath"/>
+    <path refid="library.gradle:_junit:junit:4.10.classpath"/>
+    <path refid="library.gradle:_stax:stax-api:1.0.1.classpath"/>
+    <path refid="library.gradle:_org.hamcrest:hamcrest-core:1.1.classpath"/>
+  </path>
+  
+  <path id="work.main.runtime.production.module.classpath">
+    <pathelement location="${work.main.output.dir}"/>
+    <path refid="library.gradle:_com.google.code.gson:gson:2.7.classpath"/>
+    <path refid="library.gradle:_com.googlecode.json-simple:json-simple:1.1.1.classpath"/>
+    <path refid="library.gradle:_org.codehaus.jettison:jettison:1.3.5.classpath"/>
+    <path refid="library.gradle:_junit:junit:4.10.classpath"/>
+    <path refid="library.gradle:_stax:stax-api:1.0.1.classpath"/>
+    <path refid="library.gradle:_org.hamcrest:hamcrest-core:1.1.classpath"/>
+  </path>
+  
+  <path id="work.main.module.classpath">
+    <path refid="${module.jdk.classpath.work.main}"/>
+    <pathelement location="${work.main.output.dir}"/>
+    <path refid="library.gradle:_com.google.code.gson:gson:2.7.classpath"/>
+    <path refid="library.gradle:_com.googlecode.json-simple:json-simple:1.1.1.classpath"/>
+    <path refid="library.gradle:_org.codehaus.jettison:jettison:1.3.5.classpath"/>
+    <path refid="library.gradle:_junit:junit:4.10.classpath"/>
+    <path refid="library.gradle:_stax:stax-api:1.0.1.classpath"/>
+    <path refid="library.gradle:_org.hamcrest:hamcrest-core:1.1.classpath"/>
+  </path>
+  
+  <path id="work.main.runtime.module.classpath">
+    <pathelement location="${work.main.output.dir}"/>
+    <path refid="library.gradle:_com.google.code.gson:gson:2.7.classpath"/>
+    <path refid="library.gradle:_com.googlecode.json-simple:json-simple:1.1.1.classpath"/>
+    <path refid="library.gradle:_org.codehaus.jettison:jettison:1.3.5.classpath"/>
+    <path refid="library.gradle:_junit:junit:4.10.classpath"/>
+    <path refid="library.gradle:_stax:stax-api:1.0.1.classpath"/>
+    <path refid="library.gradle:_org.hamcrest:hamcrest-core:1.1.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.work.main">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.work.main">
+    <patternset refid="excluded.from.module.work.main"/>
+  </patternset>
+  
+  <path id="work.main.module.sourcepath">
+    <dirset dir="${module.work.main.basedir}/../../src/main">
+      <include name="java"/>
+      <include name="resources"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.work.main" depends="compile.module.work.main.production,compile.module.work.main.tests" description="Compile module Work.main"/>
+  
+  <target name="compile.module.work.main.production" depends="register.custom.compilers" description="Compile module Work.main; production classes">
+    <mkdir dir="${work.main.output.dir}"/>
+    <javac2 destdir="${work.main.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.work.main}/javac">
+      <compilerarg line="${compiler.args.work.main}"/>
+      <bootclasspath refid="work.main.module.bootclasspath"/>
+      <classpath refid="work.main.module.production.classpath"/>
+      <src refid="work.main.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.work.main"/>
+    </javac2>
+    
+    <copy todir="${work.main.output.dir}">
+      <fileset dir="${module.work.main.basedir}/../../src/main/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.work.main.basedir}/../../src/main/resources">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.work.main.tests" depends="register.custom.compilers,compile.module.work.main.production" description="compile module Work.main; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.work.main" description="cleanup module">
+    <delete dir="${work.main.output.dir}"/>
+    <delete dir="${work.main.testoutput.dir}"/>
+  </target>
+</project>
